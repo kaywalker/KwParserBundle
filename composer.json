@@ -3,7 +3,10 @@
 
     "autoload": {
         "psr-0": {
-            "KW\\ParserBundle": ""
+
+            "Kw\\ParserBundle": ""
         }
-    }
+    },
+
+    "target-dir": "Kw/ParserBundle"
 }

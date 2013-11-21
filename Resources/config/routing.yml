@@ -1,0 +1,3 @@
+kw_parser_homepage:
+    pattern:  /
+    defaults: { _controller: KwParserBundle:Default:index }

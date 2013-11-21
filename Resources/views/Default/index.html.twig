@@ -1,0 +1,63 @@
+{% extends 'KwParserBundle::base.html.twig' %}
+
+
+{% set gotoIndex = tables[0][0] %}
+{% set goto = tables[0][1] %}
+{% set actionIndex = tables[1][0] %}
+{% set action = tables[1][1] %}
+
+{% block body %}
+
+<table>
+    <tr>
+        <td><b>ACTION TABLE</b></td>
+        <td><b>GOTO TABLE</b></td>
+    </tr>
+
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>State</td>
+
+                    {% for terminal in actionIndex %}
+                        <td><b> {{ terminal }}</b></td>
+                    {% endfor %}
+
+                </tr>
+
+                {% for state, cells in action %}
+                    <tr><td><b>{{ state }}</b></td>
+                        {% for num, terminal in actionIndex %}
+                            <td>{{ cells[num]|default(['-'])|join('/') }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>State</td>
+                    {% for nonterminal in gotoIndex %}
+                        <td><b>{{ nonterminal }}</b></td>
+                    {% endfor %}
+                </tr>
+                {% for state, cells in goto %}
+                    <tr><td><b>{{ state }}</b></td>
+                        {% for num, nonterminal in gotoIndex %}
+                            <td>{{ cells[num]|default('-') }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+
+            </table>
+        </td>
+    </tr>
+</table>
+
+{% for id, production in productions %}
+    {{ id }}) <b>{{ production[0] }}</b> -> {{ production[1]|join('  ') }} <br/>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{
+    "name": "kw/parser-bundle",
+
+    "autoload": {
+        "psr-0": {
+            "KW\\ParserBundle": ""
+        }
+    }
+}

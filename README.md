@@ -34,17 +34,17 @@ public function registerBundles()
 ### 3) Configuration
 
 ####Lexer
-In order to use the Lexer, to tokenize a string into an array of tokens (which can then be parsed by the GLR Parser) you must provide a set terminal symbols. 
+In order to use the Lexer, to tokenize a string into an array of tokens (which can then be parsed by the GLR Parser) you must provide a set of terminal symbols.
 Each terminal symbol consists of a name (in upper case letters) and a regular expression.
 
 ####Parser
 in order to make the parser do its work a specification of the context free grammar to parse is necessary. You need to specify the start production name and the production rules.
 
-for the production you must follow the follwing conventions:
+for the productions you must stick to the following conventions:
 - all non terminal smybols must be written in lowercase
 - all terminal symbols must be in upper case
 
-Here is an example of a valid configuartion for a simple cfg:
+Here is an example of a valid configuration for a simple CFG:
 
 ``` ymal
 #app/config/config.yml

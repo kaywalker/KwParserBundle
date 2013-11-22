@@ -19,10 +19,35 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('kw_parser');
-
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
+        $rootNode
+            ->children()
+            ->arrayNode('cfg')
+            ->isRequired()
+            ->children()
+            ->scalarNode('start')->defaultNull()->end()
+            ->arrayNode('productions')
+            ->isRequired()
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('name')
+            ->prototype('array')
+            ->isRequired()
+            ->requiresAtLeastOneElement()
+            ->prototype('array')
+            ->isRequired()
+            ->requiresAtLeastOneElement()
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->end()
+            ->arrayNode('terminals')
+            ->isRequired()
+            ->requiresAtLeastOneElement()
+            ->useAttributeAsKey('name')
+            ->prototype('scalar')->end()
+            ->end()
+            ->end()
+            ->end()
+            ->end();
 
         return $treeBuilder;
     }

@@ -27,11 +27,11 @@ class KwParserExtension extends Extension
         $loader->load('services.yml');
 
         $parser = new LRTablesGenerator(
-            $container->getParameter('kw_parser.cfg.start'),
-            $container->getParameter('kw_parser.cfg.productions'),
-            $container->getParameter('kw_parser.cfg.terminals')
+            $config['cfg']['start'],
+            $config['cfg']['productions'],
+            $config['cfg']['terminals']
         );
-
+        $container->setParameter('kw_parser.cfg.terminals', $config['cfg']['terminals']);
         $container->setParameter('kw_parser.parser.lrtables', $parser->getTables());
         $container->setParameter('kw_parser.parser.productions', $parser->getProductions());
     }

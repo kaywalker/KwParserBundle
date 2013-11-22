@@ -1,7 +1,7 @@
 KwParserBundle
 ==============
 
-This bundle provides an a simple Lexer and a SLR Parser. Both classes can be accessed as a symfony service.
+This bundle provides a simple Lexer and a SLR Parser. Both classes can be accessed as a symfony service.
 
 You must provide a context free grammar through configuration to make the tokenization and parsing work.
 
@@ -12,7 +12,7 @@ You must provide a context free grammar through configuration to make the tokeni
 ### 1) download the composer package
 
 ``` bash
-$ php composer.phar require kw/parser-bundle
+$ php composer.phar require kw/parser-bundle:dev-master
 ```
 
 

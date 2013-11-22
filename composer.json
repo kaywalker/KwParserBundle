@@ -1,12 +1,19 @@
 {
     "name": "kw/parser-bundle",
-
+    "type": "library",
+    "description": "Parser for context free grammars",
+    "keywords": ["parse", "parsing", "parser", "lr", "slr", "glr", "cfg", "context free grammar"],
+    "homepage": "https://github.com/kaywalker/KwParserBundle",
+    "authors": [
+        {
+            "name": "Kay Wienöbst",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "psr-0": {
-
             "Kw\\ParserBundle": ""
         }
     },
-
     "target-dir": "Kw/ParserBundle"
 }

@@ -41,7 +41,7 @@ Each terminal symbol consists of a name (in upper case letters) and a regular ex
 in order to make the parser do its work a specification of the context free grammar to parse is necessary. You need to specify the start production name and the production rules.
 
 for the productions you must stick to the following conventions:
-- all non terminal smybols must be written in lowercase
+- all non terminal symbols must be written in lowercase
 - all terminal symbols must be in upper case
 
 Here is an example of a valid configuration for a simple CFG:

@@ -3,6 +3,26 @@ parameters:
     kw_parser.lexer.class: Kw\ParserBundle\Model\Lexer
     kw_parser.glrparser.class: Kw\ParserBundle\Model\GLRParser
 
+    cfg_default:
+        start: 'e'
+        productions:
+          e:
+            - ['t']
+            - ['e', 'T_PLUS', 't']
+          t:
+            - ['t', 'T_MULT', 'f']
+            - ['f']
+          f:
+            - ['T_ID']
+            - ['T_OPEN', 'e', 'T_CLOSE']
+
+        terminals:
+          T_PLUS: '\+'
+          T_MULT: '\*'
+          T_ID: 'id'
+          T_OPEN: '\('
+          T_CLOSE: '\)'
+
 services:
     kw_parser.lexer:
         class: %kw_parser.lexer.class%
@@ -10,5 +30,9 @@ services:
 
     kw_parser.glrparser:
         class: %kw_parser.glrparser.class%
-        arguments: [ %kw_parser.parser.lrtables% ]
+        arguments: [ %kw_parser.parser.lrtables%, %kw_parser.parser.productions%  ]
+
+
+
+
 

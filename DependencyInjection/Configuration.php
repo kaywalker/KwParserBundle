@@ -22,7 +22,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->arrayNode('cfg')
-            ->isRequired()
             ->children()
             ->scalarNode('start')->defaultNull()->end()
             ->arrayNode('productions')

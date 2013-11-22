@@ -35,19 +35,24 @@ class Lexer
 
         // repeat until $string is empty
         while ($string != '') {
-
+            $valid = false;
             // try to match each terminal from beginning of $string.
             foreach ($this->terminalSymbols as $name => $regex) {
 
                 // if it matches cut terminal from $string
                 $value = $this->match($regex, $string);
                 if (!is_null($value)) {
+                    $valid = true;
                     $tokens[] = new Token($name, $value);
 
                     // skip other terminals and restart with new $string
                     break;
                 }
 
+            }
+
+            if (!$valid) {
+                throw new \Exception(sprintf('illegal terminals in string: "%s"', $string));
             }
 
         }

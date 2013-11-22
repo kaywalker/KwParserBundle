@@ -12,9 +12,10 @@ class GLRParser {
 
     private $tables;
 
-    public function __construct($lrtables)
+    public function __construct($lrtables, $productions)
     {
         $this->tables = $lrtables;
+        $this->productions = $productions;
     }
 
     /**

@@ -12,6 +12,12 @@ class GLRParser {
 
     private $tables;
 
+    /**
+     * Create a new GLRParser
+     *
+     * @param $lrtables the action and goto lookup tables
+     * @param $productions the production rules
+     */
     public function __construct($lrtables, $productions)
     {
         $this->tables = $lrtables;
@@ -21,14 +27,15 @@ class GLRParser {
     /**
      * Parses the tokens
      *
-     * @param array of Token
-     * @return bool
+     * @param $tokens array of Token
+     * @param $stack array to be used as stack, if result is true the stack will contain 3 elements: start state, root token,
+     * end state. on false it will contain the stack until parsing stopped.
+     * @return bool true on success, false otherwise
      */
-    public function parse($tokens)
+    public function parse($tokens, &$stack)
     {
         $state = 0;
 
-        $stack = array();
         $stack[] = $state;
 
         while ((count($tokens) > 0 || count($stack) > 3)) {
@@ -71,19 +78,20 @@ class GLRParser {
                         // remove token
                         $oldtoken = array_pop($stack);
 
-
+                        // add to children of new token
                         $newToken->addChild($oldtoken);
 
                     }
+                    // pop and push to set current state without changing stack
                     $state = array_pop($stack);
                     array_push($stack, $state);
 
-
-                    array_push($stack, $newToken);
-
-
+                    // look up and set current state to new state
                     $newState = $this->getGoto($state, $newToken->getName());
                     $state = $newState;
+
+                    // push new token and new state
+                    array_push($stack, $newToken);
                     array_push($stack, $newState);
                 }
             } else {
@@ -96,12 +104,18 @@ class GLRParser {
         return true;
     }
 
+
+    /**
+     * returns action array for given state and terminal symbol
+     *
+     * @param $state the state
+     * @param $terminal the terminal
+     * @return null|array
+     */
     public function getActions($state, $terminal)
     {
         $index = array_search($terminal, $this->tables[1][0]);
-        if ($index === false) {
-
-        } else {
+        if ($index !== false) {
             $actionsTable = $this->tables[1][1];
             if (array_key_exists($state, $actionsTable)) {
                 if (array_key_exists($index, $actionsTable[$state])) {
@@ -114,13 +128,17 @@ class GLRParser {
     }
 
 
-    public function getGoto($state, $terminal)
+    /**
+     * return goto state for given state and nonterminal symbol
+     *
+     * @param $state the state
+     * @param $nonterminal the nonterminal
+     * @return null|array
+     */
+    public function getGoto($state, $nonterminal)
     {
-        $index = array_search($terminal, $this->tables[0][0]);
-        if ($index === false) {
-
-        } else {
-
+        $index = array_search($nonterminal, $this->tables[0][0]);
+        if ($index !== false) {
             $gotoTable = $this->tables[0][1];
             if (array_key_exists($state, $gotoTable)) {
                 if (array_key_exists($index, $gotoTable[$state])) {

@@ -25,6 +25,11 @@ class Token
         return $this->value;
     }
 
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
     public function addChild(Token $child)
     {
         array_unshift($this->children, $child);

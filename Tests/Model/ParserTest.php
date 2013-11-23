@@ -62,8 +62,14 @@ class ParserTest extends WebTestCase
      */
     public function testParseResult($teststring, $expectedResult)
     {
-        $tokens =  $this->lexer->tokenize($teststring);
-        $result = $this->parser->parse($tokens);
+        $tokens = $this->lexer->tokenize($teststring);
+        $stack = array();
+        $result = $this->parser->parse($tokens, $stack);
+
+        // if true, the stack must contain 3 items (start state, root token, end state)
+        if ($result) {
+            $this->assertEquals(3, count($stack));
+        }
 
         $this->assertEquals($expectedResult, $result);
     }

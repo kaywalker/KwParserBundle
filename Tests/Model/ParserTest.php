@@ -37,7 +37,7 @@ class ParserTest extends WebTestCase
 
         $this->lexer = $this->container->get('kw_parser.lexer');
 
-        $this->parser = $this->container->get('kw_parser.glrparser');
+        $this->parser = $this->container->get('kw_parser.parser');
     }
 
     /**
@@ -63,6 +63,7 @@ class ParserTest extends WebTestCase
     public function testParseResult($teststring, $expectedResult)
     {
         $tokens = $this->lexer->tokenize($teststring);
+
         $stack = array();
         $result = $this->parser->parse($tokens, $stack);
 

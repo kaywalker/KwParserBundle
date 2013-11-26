@@ -1,14 +1,9 @@
 <?php
 
 namespace Kw\ParserBundle\Tests\Model;
+
 use Kw\ParserBundle\Model\Lexer;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-/**
- * User: kay
- * Date: 21.11.13
- * Time: 17:13
- */
 
 class LexerTest extends WebTestCase
 {

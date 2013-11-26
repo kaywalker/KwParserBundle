@@ -2,13 +2,10 @@
 
 namespace Kw\ParserBundle\Model;
 
-/**
- * User: kay
- * Date: 21.11.13
- * Time: 19:38
- */
+use Kw\ParserBundle\Model\Parser\Parser;
+use Kw\ParserBundle\Model\Parser\TokenFactory;
 
-class GLRParser {
+class GLRParser extends Parser {
 
     private $tables;
 
@@ -18,8 +15,10 @@ class GLRParser {
      * @param $lrtables the action and goto lookup tables
      * @param $productions the production rules
      */
-    public function __construct($lrtables, $productions)
+    public function __construct($lrtables, $productions, TokenFactory $tokenFactory)
     {
+        parent::__construct($tokenFactory);
+
         $this->tables = $lrtables;
         $this->productions = $productions;
     }
@@ -42,7 +41,7 @@ class GLRParser {
 
             $token = array_shift($tokens);
             if (is_null($token)) {
-                $token = new Token('$', '');
+                $token = $this->tokenFactory->createToken('$', '', '');
             }
 
             $actions = $this->getActions($state, $token->getName());
@@ -68,8 +67,7 @@ class GLRParser {
 
                     $production = $this->productions[substr($action, 1)];
                     $productionName = $production[0];
-                    $newToken = new Token($productionName, $productionName);
-
+                    $newToken = $this->tokenFactory->createToken($productionName, $productionName, '');
 
                     for ($index=0; $index<count($production[1]); $index++) {
                         // remove state
@@ -80,7 +78,6 @@ class GLRParser {
 
                         // add to children of new token
                         $newToken->addChild($oldtoken);
-
                     }
                     // pop and push to set current state without changing stack
                     $state = array_pop($stack);

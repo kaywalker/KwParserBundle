@@ -1,9 +1,10 @@
 
 parameters:
-    kw_parser.lexer.class: Kw\ParserBundle\Model\Lexer
-    kw_parser.glrparser.class: Kw\ParserBundle\Model\GLRParser
+    kw_parser.tokenFactory.class: Kw\ParserBundle\Model\SimpleTokenFactory
+    kw_parser.lexer.class: Kw\ParserBundle\Model\SimpleLexer
+    kw_parser.parser.class: Kw\ParserBundle\Model\GLRParser
 
-    cfg_default:
+    kw_parser.config:
         start: 'e'
         productions:
           e:
@@ -24,13 +25,16 @@ parameters:
           T_CLOSE: '\)'
 
 services:
+    kw_parser.tokenFactory:
+        class: %kw_parser.tokenFactory.class%
+
     kw_parser.lexer:
         class: %kw_parser.lexer.class%
-        arguments: [ %kw_parser.cfg.terminals% ]
+        arguments: [ %kw_parser.cfg.terminals%, @kw_parser.tokenFactory ]
 
-    kw_parser.glrparser:
-        class: %kw_parser.glrparser.class%
-        arguments: [ %kw_parser.parser.lrtables%, %kw_parser.parser.productions%  ]
+    kw_parser.parser:
+        class: %kw_parser.parser.class%
+        arguments: [ %kw_parser.parser.lrtables%, %kw_parser.parser.productions%, @kw_parser.tokenFactory ]
 
 
 

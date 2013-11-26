@@ -9,11 +9,6 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-
-        /** @var Lexer $lexer */
-        $lexer = $this->get('kw_parser.lexer');
-        $tokens = $lexer->tokenize('id');
-
         return $this->render(
             'KwParserBundle:Default:index.html.twig',
 
@@ -23,4 +18,27 @@ class DefaultController extends Controller
             )
         );
     }
+
+    public function editorAction()
+    {
+        return $this->render(
+            'KwParserBundle:Default:editor.html.twig'
+        );
+    }
+
+    public function saveAction()
+    {
+        $input = $this->getRequest()->get('input');
+
+        $tokens = $this->container->get('kw_parser.lexer')->tokenize($input);
+
+        $stack = array();
+        $result = $this->container->get('kw_parser.parser')->parse($tokens, $stack);
+        var_dump($stack);
+
+        return $this->render(
+            'KwParserBundle:Default:editor.html.twig'
+        );
+    }
+
 }

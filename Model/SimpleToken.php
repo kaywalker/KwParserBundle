@@ -2,7 +2,15 @@
 
 namespace Kw\ParserBundle\Model;
 
-class Token
+use Kw\ParserBundle\Model\Parser\Token;
+
+/**
+ * Class SimpleToken
+ *
+ *
+ * @package Kw\ParserBundle\Model
+ */
+class SimpleToken extends Token
 {
 
     private $name = null;

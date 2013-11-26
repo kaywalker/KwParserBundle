@@ -13,8 +13,8 @@ class DefaultController extends Controller
             'KwParserBundle:Default:index.html.twig',
 
             array(
-                'tables' =>  $this->container->getParameter('kw_parser.parser.lrtables'),
-                'productions' => $this->container->getParameter('kw_parser.parser.productions'),
+                'tables' =>  $this->container->getParameter('kw_parser.cfg.lrtables'),
+                'productions' => $this->container->getParameter('kw_parser.cfg.productions'),
             )
         );
     }

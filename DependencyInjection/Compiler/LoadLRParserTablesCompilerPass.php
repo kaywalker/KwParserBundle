@@ -10,7 +10,7 @@ class LoadLRParserTablesCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        $cfgs = $container->getParameter('kw_parser.config');
+        $cfgs = $container->getParameter('kw_parser.cfg');
 
         $terminals = $cfgs['terminals'];
         $start = $cfgs['start'];
@@ -19,7 +19,7 @@ class LoadLRParserTablesCompilerPass implements CompilerPassInterface
         $parser = new LRTablesGenerator($start, $productions, $terminals);
 
         $container->setParameter('kw_parser.cfg.terminals', $terminals);
-        $container->setParameter('kw_parser.parser.lrtables', $parser->getTables());
-        $container->setParameter('kw_parser.parser.productions', $parser->getProductions());
+        $container->setParameter('kw_parser.cfg.lrtables', $parser->getTables());
+        $container->setParameter('kw_parser.cfg.productions', $parser->getProductions());
     }
 }

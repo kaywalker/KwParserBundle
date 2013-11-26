@@ -4,7 +4,7 @@ parameters:
     kw_parser.lexer.class: Kw\ParserBundle\Model\SimpleLexer
     kw_parser.parser.class: Kw\ParserBundle\Model\GLRParser
 
-    kw_parser.config:
+    kw_parser.cfg:
         start: 'e'
         productions:
           e:
@@ -34,7 +34,7 @@ services:
 
     kw_parser.parser:
         class: %kw_parser.parser.class%
-        arguments: [ %kw_parser.parser.lrtables%, %kw_parser.parser.productions%, @kw_parser.tokenFactory ]
+        arguments: [ %kw_parser.cfg.lrtables%, %kw_parser.cfg.productions%, @kw_parser.tokenFactory ]
 
 
 
